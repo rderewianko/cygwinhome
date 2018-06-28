@@ -1,0 +1,80 @@
+#Upgrade
+1) Prior to upgrade window, run pre-upgrade rsync of stash-home
+rsync -avuz /opt/stash/stash-home/ /opt/stash/stash-home.date
+2) Shutdown bitbucket
+service atlbitbucket stop
+3) update git
+yum erase git
+yum install curl-devel expat-devel gettext-devel openssl-devel perl-devel zlib-devel asciidoc xmlto docbook2X
+ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi
+cd /var/tmp/; tar xzvf git-2.8.1.tar.gz; cd git-2.8.1; 
+  make configure 
+  ./configure --prefix=/usr
+  make all doc info
+  make install install-doc install-html install-info
+4) Download bitbucket upgrade binary
+wget -O /var/tmp/atlassian-bitbucket-4.5.1-x64.bin https://www.atlassian.com/software/stash/downloads/binary/atlassian-bitbucket-4.5.1-x64.bin
+chmod +x /var/tmp/atlassian-bitbucket-4.5.1-x64.bin
+5) Install Oracle JDK 1.8
+rpm -ivh /opt/depots/software/polarion/prereqs/jdk-8u77-linux-x64.rpm
+vi ~atlbitbucket/.bashrc ->
+export JAVA_HOME=/usr/java/jdk1.7.0_79
+export JDK_HOME=${JAVA_HOME}
+export PATH=$JAVA_HOME/bin:$PATH
+6) One last backup before upgrading
+rsync -avuz --delete /opt/stash/stash-home/ /opt/stash/stash-home.date
+7) Execute upgr
+[root@ep1d-apbitbkt01 tmp]# ./atlassian-bitbucket-4.5.1-x64.bin 
+Starting Installer ...
+
+This will install Bitbucket 4.5.1 on your computer.
+OK [o, Enter], Cancel [c]
+o
+Please choose one of the following:
+Install a new instance [1, Enter], Upgrade an existing instance [2], Install a new mirror [3], Upgrade an existing mirror [4]
+2
+Where should Bitbucket be installed?
+
+[/opt/atlassian/bitbucket/4.5.1]
+/opt/stash/bitbucket/4.5.1
+Default location for Bitbucket home directory
+
+The location for Bitbucket data.
+Please provide the location of your existing home directory, where your
+repositories, plugins, and other data are stored.
+
+Be sure to STOP your current instance and create a backup before proceeding.
+[]
+/opt/stash/stash-home
+Please review your Bitbucket installation settings
+
+
+Installation Directory: /opt/stash/bitbucket/4.5.1 
+Home Directory: /opt/stash/stash-home 
+Upgrade existing service: Yes 
+
+Install [i, Enter], Exit [e]
+i
+
+Extracting files ...
+                                                                           
+Installation of Bitbucket is complete
+Would you like to launch Bitbucket?
+Yes [y, Enter], No [n]
+n
+Installation of Bitbucket 4.5.1 is complete
+Your installation of Bitbucket 4.5.1 is now ready and can be accessed via
+your browser.
+Bitbucket 4.5.1 can be accessed at http://localhost:7990
+Finishing installation ...
+
+8) update /opt/stash/stash-home/shared/bitbucket.properties to include the following line:
+page.max.diff.lines=20000
+
+9) Add snmp monitoring to JVM
+add the following to JAVA_OPTS in /opt/stash/bitbucket/4.5.1/bin/setenv.sh: -Dcom.sun.management.snmp.port=1161 -Dcom.sun.management.snmp.interface=0.0.0.0
+
+10) Start atlbitbucket service
+service atlbitbucket start
+
+11) point browser to http://ep1d-apbitbkt01:7990 for initial verification before passing to DevOps

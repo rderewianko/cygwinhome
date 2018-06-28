@@ -1,0 +1,1845 @@
+<?xml version="1.0" encoding="UTF-8"?><Benchmark xmlns="http://checklists.nist.gov/xccdf/1.2" xmlns:xccdf="http://checklists.nist.gov/xccdf/1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="xccdf_org.cisecurity.benchmarks_benchmark_1.1.0.1_CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark" style="SCAP_1.2" xsi:schemaLocation="http://scap.nist.gov/schema/xccdf/1.2 http://scap.nist.gov/schema/xccdf/1.2/xccdf_1.2.xsd">
+   <status date="2014-02-24">incomplete</status>
+   <title xml:lang="en">CIS Microsoft SQL Server 2008 R2 Database Engine Benchmark</title>
+   <description xml:lang="en">
+      <p xmlns="http://www.w3.org/1999/xhtml">This document, Security Configuration Benchmark for
+         Microsoft SQL Server 2008 R2, provides prescriptive guidance for establishing a secure
+         configuration posture for Microsoft SQL Server 2008 R2 versions #x2013; running on
+         Microsoft Windows Server 2008 R2. This guide was tested against Microsoft SQL Server 2008
+         R2 Service Pack 1 64-bit version. To obtain the latest version of this guide, please visit
+            <a href="http://benchmarks.cisecurity.org">http://benchmarks.cisecurity.org</a>. If you
+         have questions, comments, or have identified ways to improve this guide, please write us at
+         feedback@cisecurity.org.</p>
+   </description>
+   <notice id="terms-of-use" xml:lang="en"> BACKGROUND. The Center for Internet Security ("CIS")
+      provides benchmarks, scoring tools, software, data, information, suggestions, ideas, and other
+      services and materials from the CIS website or elsewhere ("Products") as a public service to
+      Internet users worldwide. Recommendations contained in the Products ("Recommendations") result
+      from a consensus-building process that involves many security experts and are generally
+      generic in nature. The Recommendations are intended to provide helpful information to
+      organizations attempting to evaluate or improve the security of their networks, systems, and
+      devices. Proper use of the Recommendations requires careful analysis and adaptation to
+      specific user requirements. The Recommendations are not in any way intended to be a "quick
+      fix" for anyone's information security needs. NO REPRESENTATIONS, WARRANTIES, OR COVENANTS.
+      CIS makes no representations, warranties, or covenants whatsoever as to (i) the positive or
+      negative effect of the Products or the Recommendations on the operation or the security of any
+      particular network, computer system, network device, software, hardware, or any component of
+      any of the foregoing or (ii) the accuracy, reliability, timeliness, or completeness of the
+      Products or the Recommendations. CIS is providing the Products and the Recommendations "as is"
+      and "as available" without representations, warranties, or covenants of any kind. USER
+      AGREEMENTS. By using the Products and/or the Recommendations, I and/or my organization ("We")
+      agree and acknowledge that: 1. No network, system, device, hardware, software, or component
+      can be made fully secure; 2. We are using the Products and the Recommendations solely at our
+      own risk; 3. We are not compensating CIS to assume any liabilities associated with our use of
+      the Products or the Recommendations, even risks that result from CIS's negligence or failure
+      to perform; 4. We have the sole responsibility to evaluate the risks and benefits of the
+      Products and Recommendations to us and to adapt the Products and the Recommendations to our
+      particular circumstances and requirements; 5. Neither CIS, nor any CIS Party (defined below)
+      has any responsibility to make any corrections, updates, upgrades, or bug fixes; or to notify
+      us of the need for any such corrections, updates, upgrades, or bug fixes; and 6. Neither CIS
+      nor any CIS Party has or will have any liability to us whatsoever (whether based in contract,
+      tort, strict liability or otherwise) for any direct, indirect, incidental, consequential, or
+      special damages (including without limitation loss of profits, loss of sales, loss of or
+      damage to reputation,loss of customers, loss of software, data, information or emails, loss of
+      privacy, loss of use of any computer or other equipment, business interruption, wasted
+      management or other staff resources or claims of any kind against us from third parties)
+      arising out of or in any way Connected with our use of or our inability to use any of the
+      Products or Recommendations (even if CIS has been advised of the possibility of such damages),
+      including without limitation any liability associated with infringement of intellectual
+      property, defects, bugs, errors, omissions, viruses, worms, backdoors, Trojan horses or other
+      harmful items. GRANT OF LIMITED RIGHTS. CIS hereby grants each user the following rights, but
+      only so long as the user complies with all of the terms of these Agreed Terms of Use: 1.
+      Except to the extent that we may have received additional authorization pursuant to a written
+      agreement with CIS, each user may download, install and use each of the Products on a single
+      computer; 2. Each user may print one or more copies of any Product or any component of a
+      Product that is in a .txt, .pdf, .doc, .mcw, or .rtf format, provided that all such copies are
+      printed in full and are kept intact, including without limitation the text of this Agreed
+      Terms of Use in its entirety. RETENTION OF INTELLECTUAL PROPERTY RIGHTS; LIMITATIONS ON
+      DISTRIBUTION. The Products are protected by copyright and other intellectual property laws and
+      by international treaties. We acknowledge and agree that we are not acquiring title to any
+      intellectual property rights in the Products and that full title and all ownership rights to
+      the Products will remain the exclusive property of CIS or CIS Parties. CIS reserves all rights
+      not expressly granted to users in the preceding section entitled "Grant of limited rights."
+      Subject to the paragraph entitled "Special Rules" (which includes a waiver, granted to some
+      classes of CIS Members, of certain limitations in this paragraph), and except as we may have
+      otherwise agreed in a written agreement with CIS, we agree that we will not (i) decompile,
+      disassemble, reverse engineer, or otherwise attempt to derive the source code for any software
+      Product that is not already in the form of source code; (ii) distribute, redistribute,
+      encumber, sell, rent, lease, lend, sublicense, or otherwise transfer or exploit rights to any
+      Product or any component of a Product; (iii) post any Product or any component of a Product on
+      any website, bulletin board, ftp server, newsgroup, or other similar mechanism or device,
+      without regard to whether such mechanism or device is internal or external, (iv) remove or
+      alter trademark, logo, copyright or other proprietary notices, legends, symbols or labels in
+      any Product or any component of a Product; (v) remove these Agreed Terms of Use from, or alter
+      these Agreed Terms of Use as they appear in, any Product or any component of a Product; (vi)
+      use any Product or any component of a Product with any derivative works based directly on a
+      Product or any component of a Product; (vii) use any Product or any component of a Product
+      with other products or applications that are directly and specifically dependent on such
+      Product or any component for any part of their functionality, or (viii) represent or claim a
+      particular level of compliance with a CIS Benchmark, scoring tool or other Product. We will
+      not facilitate or otherwise aid other individuals or entities in any of the activities listed
+      in this paragraph. We hereby agree to indemnify, defend, and hold CIS and all of its officers,
+      directors, members, contributors, employees, authors, developers, agents, affiliates,
+      licensors, information and service providers, software suppliers, hardware suppliers, and all
+      other persons who aided CIS in the creation, development, or maintenance of the Products or
+      Recommendations ("CIS Parties") harmless from and against any and all liability, losses,
+      costs, and expenses (including attorneys' fees and court costs) incurred by CIS or any CIS
+      Party in connection with any claim arising out of any violation by us of the preceding
+      paragraph, including without limitation CIS's right, at our expense, to assume the exclusive
+      defense and control of any matter subject to this indemnification, and in such case, we agree
+      to cooperate with CIS in its defense of such claim. We further agree that all CIS Parties are
+      third-party beneficiaries of our undertakings in these Agreed Terms of Use. SPECIAL RULES. CIS
+      has created and will from time to time create, special rules for its members and for other
+      persons and organizations with which CIS has a written contractual relationship. Those special
+      rules will override and supersede these Agreed Terms of Use with respect to the users who are
+      covered by the special rules. CIS hereby grants each CIS Security Consulting or Software
+      Vendor Member and each CIS Organizational User Member, but only so long as such Member remains
+      in good standing with CIS and complies with all of the terms of these Agreed Terms of Use, the
+      right to distribute the Products and Recommendations within such Member's own organization,
+      whether by manual or electronic means. Each such Member acknowledges and agrees that the
+      foregoing grant is subject to the terms of such Member's membership arrangement with CIS and
+      may, therefore, be modified or terminated by CIS at any time. CHOICE OF LAW; JURISDICTION;
+      VENUE. We acknowledge and agree that these Agreed Terms of Use will be governed by and
+      construed in accordance with the laws of the State of Maryland, that any action at law or in
+      equity arising out of or relating to these Agreed Terms of Use shall be filed only in the
+      courts located in the State of Maryland, that we hereby consent and submit to the personal
+      jurisdiction of such courts for the purposes of litigating any such action. If any of these
+      Agreed Terms of Use shall be determined to be unlawful, void, or for any reason unenforceable,
+      then such terms shall be deemed severable and shall not affect the validity and enforceability
+      of any remaining provisions. BY USING THE PRODUCTS I(WE) ACKNOWLEDGE THAT WE HAVE READ THESE
+      AGREED TERMS OF USE IN THEIR ENTIRETY, UNDERSTAND THEM, AND I(WE) AGREE TO BE BOUND BY THEM IN
+      ALL RESPECTS.</notice>
+   <platform idref="cpe:2.3:a:microsoft:sql_server:2008:*:*:*:*:*:*:*"/>
+   <version>1.1.0.1</version>
+   <Profile id="xccdf_org.cisecurity.benchmarks_profile_Level_1_-_Database_Engine">
+      <title xml:lang="en">Level 1 - Database Engine</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">Items in this profile intend to:</p>
+         <ul xmlns="http://www.w3.org/1999/xhtml">
+            <li>be practical and prudent;</li>
+            <li>provide a clear security benefit; and</li>
+            <li>not inhibit the utility of the technology beyond acceptable means.</li>
+         </ul>
+         <p xmlns="http://www.w3.org/1999/xhtml"> </p>
+      </description>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_1.1_Install_the_Latest_SQL_Server_Service_Packs_and_Hotfixes" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.1_Set_the_Ad_Hoc_Distributed_Queries_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.2_Set_the_CLR_Enabled_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.3_Set_the_Cross_DB_Ownership_Chaining_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.4_Set_the_Database_Mail_XPs_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.5_Set_the_Ole_Automation_Procedures_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.6_Set_the_Remote_Access_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.7_Set_the_Remote_Admin_Connections_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.8_Set_the_Scan_For_Startup_Procs_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.9_Set_the_SQL_Mail_XPs_Server_Configuration_Option_to_0" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.10_Set_the_Trustworthy_Database_Property_to_Off" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.11_Disable_Unnecessary_SQL_Server_Protocols" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.12_Configure_SQL_Server_to_use_non-standard_ports" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.13_Set_the_Hide_Instance_option_to_Yes_for_Production_SQL_Server_instances" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.14_Disable_the_sa_Login_Account" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_2.15_Rename_the_sa_Login_Account" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.1_Revoke_Execute_on_xp_availablemedia_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.2_Set_the_xp_cmdshell_option_to_disabled" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.3_Revoke_Execute_on_xp_dirtree_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.4_Revoke_Execute_on_xp_enumgroups_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.5_Revoke_Execute_on_xp_fixeddrives_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.6_Revoke_Execute_on_xp_servicecontrol_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.7_Revoke_Execute_on_xp_subdirs_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.8_Revoke_Execute_on_xp_regaddmultistring_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.9_Revoke_Execute_on_xp_regdeletekey_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.10_Revoke_Execute_on_xp_regdeletevalue_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.11_Revoke_Execute_on_xp_regenumvalues_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.12_Revoke_Execute_on_xp_regremovemultistring_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.13_Revoke_Execute_on_xp_regwrite_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_3.14_Revoke_Execute_on_xp_regread_to_PUBLIC" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_4.1_Set_The_Server_Authentication_Property_To_Windows_Authentication_mode" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_4.2_Revoke_CONNECT_permissions_on_the_guest_user_within_all_SQL_Server_databases_excluding_the_master_msdb_and_tempdb" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_4.3_Drop_Orphaned_Users_From_SQL_Server_Databases" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_5.1_Set_the_MUST_CHANGE_Option_to_ON_for_All_SQL_Authenticated_Logins" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_5.2_Set_the_CHECK_EXPIRATION_Option_to_ON_for_All_SQL_Authenticated_Logins_Within_the_Sysadmin_Role" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_5.3_Set_the_CHECK_POLICY_Option_to_ON_for_All_SQL_Authenticated_Logins" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_6.1_Set_the_Maximum_number_of_error_log_files_setting_to_greater_than_or_equal_to_12" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_6.2_Set_the_Default_Trace_Enabled_Server_Configuration_Option_to_1" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_6.3_Set_Login_Auditing_to_Both_failed_and_successful_logins" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_7.1_Sanitize_Database_and_Application_User_Input" selected="true"/>
+      <select idref="xccdf_org.cisecurity.benchmarks_rule_7.2_Set_the_CLR_Assembly_Permission_Set_to_SAFE_ACCESS_for_All_CLR_Assemblies" selected="true"/>
+   </Profile>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_1.1.1_var" operator="equals" type="string">
+      <title>Check for latest service pack</title>
+      <description>This variable is used in Benchmark item "Install the Latest SQL Server Service
+         Packs and Hotfixes" -&gt; "Check for latest service pack</description>
+      <value>SP2</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_1.1.2_var" operator="equals" type="string">
+      <title>Check for latest product version</title>
+      <description>This variable is used in Benchmark item "Install the Latest SQL Server Service
+         Packs and Hotfixes" -&gt; "Check for latest product version</description>
+      <value>10.50.4302.0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.1.1_var" operator="equals" type="number">
+      <title>Check that 'Ad Hoc Distributed Queries' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Ad Hoc Distributed Queries'
+         Server Configuration Option to 0" -&gt; "Check that 'Ad Hoc Distributed Queries' is set to
+         0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.2.1_var" operator="equals" type="number">
+      <title>Check that 'clr enabled' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'CLR Enabled' Server
+         Configuration Option to 0" -&gt; "Check that 'clr enabled' is set to 0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.3.1_var" operator="equals" type="number">
+      <title>Check that 'Cross db ownership chaining' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Cross DB Ownership Chaining'
+         Server Configuration Option to 0" -&gt; "Check that 'Cross db ownership chaining' is set to
+         0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.4.1_var" operator="equals" type="number">
+      <title>Check that 'Database Mail XPs' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Database Mail XPs' Server
+         Configuration Option to 0" -&gt; "Check that 'Database Mail XPs' is set to 0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.5.1_var" operator="equals" type="number">
+      <title>Check that 'Ole Automation Procedures' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Ole Automation Procedures'
+         Server Configuration Option to 0" -&gt; "Check that 'Ole Automation Procedures' is set to
+         0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.6.1_var" operator="equals" type="number">
+      <title>Check that 'Remote access' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Remote Access' Server
+         Configuration Option to 0" -&gt; "Check that 'Remote access' is set to 0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.7.1_var" operator="equals" type="number">
+      <title>Check that 'Remote admin connections' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Remote Admin Connections'
+         Server Configuration Option to 0" -&gt; "Check that 'Remote admin connections' is set to
+         0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.8.1_var" operator="equals" type="number">
+      <title>Check that 'Scan for startup procs' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'Scan For Startup Procs' Server
+         Configuration Option to 0" -&gt; "Check that 'Scan for startup procs' is set to
+         0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.9.1_var" operator="equals" type="number">
+      <title>Check that 'SQL Mail XPs' is set to 0</title>
+      <description>This variable is used in Benchmark item "Set the 'SQL Mail XPs' Server
+         Configuration Option to 0" -&gt; "Check that 'SQL Mail XPs' is set to 0</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.10.1_var" operator="equals" type="string">
+      <title>Check that the 'Trustworthy' database property is set to 'Off'</title>
+      <description>This variable is used in Benchmark item "Set the 'Trustworthy' Database Property
+         to Off" -&gt; "Check that the 'Trustworthy' database property is set to 'Off'</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.13.1_var" operator="equals" type="number">
+      <title>Check that the 'Hide Instance' option is set to 'Yes'</title>
+      <description>This variable is used in Benchmark item "Set the 'Hide Instance' option to 'Yes'
+         for Production SQL Server instances" -&gt; "Check that the 'Hide Instance' option is set to
+         'Yes'</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.14.1_var" operator="equals" type="number">
+      <title>Check that the SA account is disabled</title>
+      <description>This variable is used in Benchmark item "Disable the 'sa' Login Account" -&gt;
+         "Check that the SA account is disabled</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_2.15.1_var" operator="not equal" type="string">
+      <title>Check that the SA account has been renamed</title>
+      <description>This variable is used in Benchmark item "Rename the 'sa' Login Account" -&gt;
+         "Check that the SA account has been renamed</description>
+      <value>sa</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.1.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_availablemedia' has been revoked to PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_availablemedia' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_availablemedia' has been revoked to
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.2.1_var" operator="equals" type="number">
+      <title>Check that 'xp_cmdshell' has been disabled</title>
+      <description>This variable is used in Benchmark item "Set the 'xp_cmdshell' option to
+         disabled" -&gt; "Check that 'xp_cmdshell' has been disabled</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.3.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_dirtree' has been revoked</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_dirtree' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_dirtree' has been revoked</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.4.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_enumgroups' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_enumgroups' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_enumgroups' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.5.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_fixeddrives' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_fixeddrives' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_fixeddrives' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.6.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_servicecontrol' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_servicecontrol' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_servicecontrol' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.7.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_subdirs' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_subdirs' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_subdirs' has been revoked for PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.8.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regaddmultistring' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regaddmultistring'
+         to PUBLIC" -&gt; "Check that Execute on 'xp_regaddmultistring' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.9.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regdeletekey' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regdeletekey' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_regdeletekey' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.10.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regdeletevalue' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regdeletevalue' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_regdeletevalue' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.11.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regenumvalues' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regenumvalues' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_regenumvalues' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.12.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regremovemultistring' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on
+         'xp_regremovemultistring' to PUBLIC" -&gt; "Check that Execute on 'xp_regremovemultistring'
+         has been revoked for PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.13.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regwrite' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regwrite' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_regwrite' has been revoked for
+         PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_3.14.1_var" operator="not equal" type="string">
+      <title>Check that Execute on 'xp_regread' has been revoked for PUBLIC</title>
+      <description>This variable is used in Benchmark item "Revoke Execute on 'xp_regread' to
+         PUBLIC" -&gt; "Check that Execute on 'xp_regread' has been revoked for PUBLIC</description>
+      <value>PUBLIC</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_4.1.1_var" operator="equals" type="string">
+      <title>Check that the 'Server Authentication' property is set to 'Windows NT
+         Authentication'</title>
+      <description>This variable is used in Benchmark item "Set The 'Server Authentication' Property
+         To Windows Authentication mode" -&gt; "Check that the 'Server Authentication' property is
+         set to 'Windows NT Authentication'</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_4.2.1_var" operator="equals" type="number">
+      <title>Check that CONNECT permissions to 'guest' have been revoked</title>
+      <description>This variable is used in Benchmark item "Revoke CONNECT permissions on the 'guest
+         user' within all SQL Server databases excluding the master, msdb and tempdb" -&gt; "Check
+         that CONNECT permissions to 'guest' have been revoked</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_4.3.1_var" operator="equals" type="string">
+      <title>Check that no orphaned users exist</title>
+      <description>This variable is used in Benchmark item "Drop Orphaned Users From SQL Server
+         Databases" -&gt; "Check that no orphaned users exist</description>
+      <value>0</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_5.2.1_var" operator="equals" type="number">
+      <title>Check that 'CHECK_EXPIRATION' is On for all SQL-authenticated logins with the sysadmin
+         role</title>
+      <description>This variable is used in Benchmark item "Set the 'CHECK_EXPIRATION' Option to ON
+         for All SQL Authenticated Logins Within the Sysadmin Role" -&gt; "Check that
+         'CHECK_EXPIRATION' is On for all SQL-authenticated logins with the sysadmin
+         role</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_5.3.1_var" operator="equals" type="number">
+      <title>Check that the 'CHECK_POLICY' option is set to ON for All SQL-authenticated
+         logins</title>
+      <description>This variable is used in Benchmark item "Set the 'CHECK_POLICY' Option to ON for
+         All SQL Authenticated Logins" -&gt; "Check that the 'CHECK_POLICY' option is set to ON for
+         All SQL-authenticated logins</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_6.2.1_var" operator="equals" type="number">
+      <title>Check that 'Default Trace Enabled' configuration value is set to 1</title>
+      <description>This variable is used in Benchmark item "Set the 'Default Trace Enabled' Server
+         Configuration Option to 1" -&gt; "Check that 'Default Trace Enabled' configuration value is
+         set to 1</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_6.2.2_var" operator="equals" type="number">
+      <title>Check that the 'Default Trace Enabled' value in use is equal to 1</title>
+      <description>This variable is used in Benchmark item "Set the 'Default Trace Enabled' Server
+         Configuration Option to 1" -&gt; "Check that the 'Default Trace Enabled' value in use is
+         equal to 1</description>
+      <value>1</value>
+   </Value>
+   <Value id="xccdf_org.cisecurity.benchmarks_value_7.2.1_var" operator="equals" type="string">
+      <title>Check that the 'CLR Assembly Permission Set' is set to SAFE_ACCESS for All CLR
+         Assemblies</title>
+      <description>This variable is used in Benchmark item "Set the 'CLR Assembly Permission Set' to
+         SAFE_ACCESS for All CLR Assemblies" -&gt; "Check that the 'CLR Assembly Permission Set' is
+         set to SAFE_ACCESS for All CLR Assemblies</description>
+      <value>safe_access</value>
+   </Value>
+   <Value abstract="false" hidden="false" id="xccdf_org.cisecurity_value_jdbc.url" interactive="1" prohibitChanges="false" type="string">
+      <title override="0"> SQL Server connection string. </title>
+      <description override="0"> This value allows for user-supplied connection strings </description>
+      <value selector=""/>
+   </Value>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_1_Updates_and_Patches">
+      <title xml:lang="en">Updates and Patches</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">[This space intentionally left blank]</p>
+         <p xmlns="http://www.w3.org/1999/xhtml"> </p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_1.1_Install_the_Latest_SQL_Server_Service_Packs_and_Hotfixes" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Install the Latest SQL Server Service Packs and Hotfixes</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Server patches contain program updates that
+               fix security and product functionality issues found in the software. These patches
+               can be installed with a hotfix which is a single patch, a cumulative update which is
+               a small group of patches or a service pack which is a large collection of patches.<br/>
+               <br/>The SQL Server version and patch levels should be the most recent compatible
+               with the organizations' operational needs</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Using the most recent SQL Server software, along
+               with all applicable patches can help limit the possibilities for vulnerabilities in
+               the software, the installation version and/or patches applied during setup should be
+               established according to the needs of the organization.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Identify the current version and patch level of your SQL Server instances and
+                     ensure they contain the latest security fixes. Make sure to test these fixes in
+                     your test environments before updating production instances.</p>
+                  <p> </p>
+                  <p>The most recent SQL Server patches can be found here:</p>
+                  <p>Hotfixes and Cumulative updates: <a href="http://blogs.msdn.com/b/sqlreleaseservices/">http://blogs.msdn.com/b/sqlreleaseservices/</a>
+                  </p>
+                  <p>Service Packs: <a href="http://support.microsoft.com/kb/968382">http://support.microsoft.com/kb/968382</a>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1002" value-id="xccdf_org.cisecurity.benchmarks_value_1.1.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:1003" value-id="xccdf_org.cisecurity.benchmarks_value_1.1.2_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1002"/>
+         </check>
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_2_Surface_Area_Reduction">
+      <title xml:lang="en">Surface Area Reduction</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">SQL Server offers various configuration options,
+            some of them can be controlled by the sp_configure stored procedures. This section
+            contains the listing of the corresponding recommendations.</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.1_Set_the_Ad_Hoc_Distributed_Queries_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Ad Hoc Distributed Queries' Server Configuration Option to
+            0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ad Hoc Distributed Queries Allow users to query
+               data and execute statements on external data sources. This functionality should be
+               disabled.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This feature can be used to remotely access and
+               exploit vulnerabilities on remote SQL Server instances and to run unsafe Visual Basic
+               for Application functions.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.9895533633555401">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Ad Hoc Distributed Queries',
+                     0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE; </code>
+                  <p>
+                     <br/>
+                     <br/>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1004" value-id="xccdf_org.cisecurity.benchmarks_value_2.1.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1003"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.2_Set_the_CLR_Enabled_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'CLR Enabled' Server Configuration Option to 0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The CLR enabled option specifies whether user
+               assemblies can be run by SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enabling use of CLR assemblies widens the attack
+               surface of SQL Server and puts it at risk from both inadvertent and malicious
+               assemblies.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.11609117469257424">EXECUTE sp_configure 'clr enabled',
+                     0;<br/>RECONFIGURE; </code>
+                  <p>
+                     <br/>
+                     <br/>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1005" value-id="xccdf_org.cisecurity.benchmarks_value_2.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1004"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.3_Set_the_Cross_DB_Ownership_Chaining_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Cross DB Ownership Chaining' Server Configuration Option to
+            0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This option allows controlling cross-database
+               ownership chaining across all databases.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This option allows a member of the db_owner role
+               in a database to gain access to objects owned by a login in any other database,
+               causing an unnecessary information disclosure.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.7195484381180053">EXECUTE sp_configure 'Cross db ownership
+                     chaining', 0;<br/>RECONFIGURE;<br/>GO </code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1006" value-id="xccdf_org.cisecurity.benchmarks_value_2.3.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1005"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.4_Set_the_Database_Mail_XPs_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Database Mail XPs' Server Configuration Option to 0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enables the generation and transmission of email
+               messages from SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Disabling Database Mail reduces the SQL Server
+               surface, eliminates a DOS attack vector and channel to exfiltrate data from the
+               database server to a remote host.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.5164993881948297">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Database Mail XPs',
+                     0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE;</code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1007" value-id="xccdf_org.cisecurity.benchmarks_value_2.4.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1006"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.5_Set_the_Ole_Automation_Procedures_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Ole Automation Procedures' Server Configuration Option to
+            0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Extended stored procedures that allow SQL Server
+               users to execute functions external to SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enabling this option will increase the attack
+               surface of SQL Server and allow users to execute functions in the security context of
+               SQL Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.09515479935629345">EXECUTE sp_configure 'show advanced
+                     options', 1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Ole Automation
+                     Procedures', 0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced
+                     options', 0;<br/>RECONFIGURE; </code>
+                  <p>
+                     <br/>
+                     <br/>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1008" value-id="xccdf_org.cisecurity.benchmarks_value_2.5.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1007"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.6_Set_the_Remote_Access_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Remote Access' Server Configuration Option to 0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enables the execution of local stored procedures
+               on remote servers or remote stored procedures on local server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Functionality can be abused to launch a
+               Denial-of-Service (DoS) attack on remote servers by off-loading query processing to a
+               target.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.18292926065878845">EXECUTE sp_configure 'show advanced
+                     options', 1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Remote access',
+                     0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE; </code>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1009" value-id="xccdf_org.cisecurity.benchmarks_value_2.6.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1008"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.7_Set_the_Remote_Admin_Connections_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Remote Admin Connections' Server Configuration Option to
+            0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This option defines whether the Dedicated Admin
+               Connection (DAC) is listening on localhost only or on the SQL Server IP address.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The Dedicated Admin Connection is a powerful
+               database feature that allows connected users to circumvent the SQL Server abstraction
+               layer and have direct access to several system tables which can be used to conduct
+               malicious activities. This feature should be restricted to local administration only
+               to reduce exposure.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command on clustered installations:</p>
+                  <code class="pre_0.41065368756572207">EXECUTE sp_configure 'show advanced
+                     options', 1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Remote admin
+                     connections', 1;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show
+                     advanced options', 0;<br/>RECONFIGURE; </code>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1010" value-id="xccdf_org.cisecurity.benchmarks_value_2.7.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1009"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.8_Set_the_Scan_For_Startup_Procs_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Scan For Startup Procs' Server Configuration Option to
+            0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This option causes SQL Server to scan for and
+               automatically run all stored procedures that are set to execute upon service
+               startup.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enforcing this control reduces the threat of an
+               entity leveraging these facilities for malicious purposes.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.4743513844986773">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Scan for startup procs',
+                     0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE; </code>
+                  <p>
+                     <br/>
+                     <br/>
+                  </p>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>Setting Scan for Startup Procedures to 0 will prevent certain audit traces and
+                     other commonly used monitoring SPs from re-starting on start up.</p>
+               </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1011" value-id="xccdf_org.cisecurity.benchmarks_value_2.8.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1010"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.9_Set_the_SQL_Mail_XPs_Server_Configuration_Option_to_0" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'SQL Mail XPs' Server Configuration Option to 0</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Mail provides a mechanism to send, receive,
+               delete, and process e-mail messages using SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Mail, which is deprecated in favor of
+               Database Mail and if disabled reduces the SQL Server surface, eliminates a DOS attack
+               vector and channel to exfiltrate data from the database server to a remote host.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.4721446541208364">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'SQL Mail XPs',
+                     0;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE; </code>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1012" value-id="xccdf_org.cisecurity.benchmarks_value_2.9.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1011"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.10_Set_the_Trustworthy_Database_Property_to_Off" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Trustworthy' Database Property to Off</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The TRUSTWORTHY option allows database objects
+               to access objects in other database under certain circumstances. </p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Provides protection from malicious CLR
+               assemblies or extended procedures.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Execute the following statement against the database:</p>
+                  <code class="pre_0.7789384719649145">ALTER DATABASE <em>&lt;dbname&gt;</em>
+                     <br/>SET TRUSTWORTHY OFF; </code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1013" value-id="xccdf_org.cisecurity.benchmarks_value_2.10.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1012"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.11_Disable_Unnecessary_SQL_Server_Protocols" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Disable Unnecessary SQL Server Protocols</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Server supports Shared Memory, Named Pipes,
+               TCP/IP and VIA protocols. However, SQL Server should be configured to use the bare
+               minimum required based on the organization's needs.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Using fewer protocols minimizes the attack
+               surface of SQL Server and in some cases can protect it from remote attacks.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Open SQL Server Configuration Manager; go to the SQL Server Network
+                     Configuration. Ensure that only required protocols are enabled. Disable
+                     protocols not necessary.</p>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>The Database Engine must be stopped and restarted for the change to take
+                     effect.</p>
+               </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.12_Configure_SQL_Server_to_use_non-standard_ports" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Configure SQL Server to use non-standard ports</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">If enabled, the default SQL Server instance will
+               be assigned a default port of TCP:1433 for TCP/IP communication. Administrators can
+               also configure named instances to use TCP:1433 for communication. TCP:1433 is a
+               widely known SQL Server port and this port assignment should be changed.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Using a non-default port helps protect the
+               database from attacks directed to the default port.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <ol>
+                     <li>In SQL Server Configuration Manager, in the console pane, expand SQL Server
+                        Network Configuration, expand Protocols for , and then double-click the
+                        TCP/IP or VIA protocol</li>
+                     <li>In the TCP/IP Properties dialog box, on the IP Addresses tab, several IP
+                        addresses appear in the format IP1, IP2, up to IPAll. One of these is for
+                        the IP address of the loopback adapter, 127.0.0.1. Additional IP addresses
+                        appear for each IP Address on the computer</li>
+                     <li>Change the TCP Port field from 1433 to another non-standard port or leave
+                        the TCP Port field empty and set the TCP Dynamic Ports value to 0 to enable
+                        dynamic port assignment and then click OK.</li>
+                     <li>In the console pane, click SQL Server Services.</li>
+                     <li>In the details pane, right-click SQL Server () and then click Restart, to
+                        stop and restart SQL Server.</li>
+                  </ol>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>Changing the default port will force DAC (Default Administrator Connection) to
+                     listen on a random port. Also, it might make benign applications, such as
+                     application firewalls, require special configuration.</p>
+               </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.13_Set_the_Hide_Instance_option_to_Yes_for_Production_SQL_Server_instances" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Hide Instance' option to 'Yes' for Production SQL Server
+            instances</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Server instances within production
+               environments should be designated as hidden to prevent advertisement by the SQL
+               Server Browser service.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Designating production SQL Server instances as
+               hidden leads to a more secure installation because they cannot be enumerated.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <ol>
+                     <li>In SQL Server Configuration Manager, expand SQL Server Network
+                        Configuration, right-click Protocols for &lt;server instance&gt;, and then
+                        select Properties.</li>
+                     <li>On the Flags tab, in the Hide Instance box, select Yes, and then click OK
+                        to close the dialog box. The change takes effect immediately for new
+                        connections.</li>
+                  </ol>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1014" value-id="xccdf_org.cisecurity.benchmarks_value_2.13.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1013"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.14_Disable_the_sa_Login_Account" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Disable the 'sa' Login Account</title>
+         <description xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="overview">
+               <p>The <span class="inline_block">sa </span>account is a widely known and often
+                  widely used SQL Server account with sysadmin privileges.</p>
+            </div>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enforcing this control reduces the probability
+               of an attacker executing brute force attacks against a well-known principal.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <div> Execute the following query:</div>
+                  <div>
+                     <code class="pre_0.22963051840269766">ALTER LOGIN sa DISABLE;</code>
+                  </div>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <div class="overview">
+                     <p>It is not a good security practice to code applications or scripts to use
+                        the sa account. However, if this has been done disabling the sa account will
+                        prevent scripts and applications for authenticating to the database server
+                        and executing required tasks or functions.</p>
+                  </div>
+               </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1015" value-id="xccdf_org.cisecurity.benchmarks_value_2.14.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1014"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_2.15_Rename_the_sa_Login_Account" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Rename the 'sa' Login Account</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The <span class="inline_block">sa </span>account
+               is a widely known and often widely used SQL Server account with sysadmin
+               privileges.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">It is more difficult to launch password-guessing
+               and brute-force attacks against the sa account if the username is not known.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Replace the different_user value within the below syntax and execute rename the
+                     sa login.</p>
+                  <code class="pre_0.9095109859510349">ALTER LOGIN sa WITH NAME = different_user; </code>
+                  <p>
+                     <br/>
+                     <br/>
+                  </p>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>It is not a good security practice to code applications or scripts to use the
+                     sa account. However, if this has been done renaming the sa account will prevent
+                     scripts and applications for authenticating to the database server and
+                     executing required tasks or functions.</p>
+               </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1016" value-id="xccdf_org.cisecurity.benchmarks_value_2.15.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1015"/>
+         </check>
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_3_Extended_Stored_Procedures">
+      <title xml:lang="en">Extended Stored Procedures</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">Extended stored procedures are to be removed in a
+            future version of SQL Server. Consider using CLR Integration instead. The following
+            extended stored procedures should not be used by any application or maintenance script.
+            Do not attempt to remove or assign DENY rule to any of these stored procedures. Doing so
+            may result in an unsupported installation of SQL Server 2008.</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.1_Revoke_Execute_on_xp_availablemedia_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_availablemedia' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Lists all available storage devices that may be
+               written to.<br/>
+               <br/>
+            </p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               an attacker from viewing local available drives for directory and file enumeration.
+               This procedure is currently leveraged by several automated SQL Injection tools.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.1818907842751638">REVOKE EXECUTE ON xp_availablemedia TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 115%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1017" value-id="xccdf_org.cisecurity.benchmarks_value_3.1.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1016"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.2_Set_the_xp_cmdshell_option_to_disabled" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'xp_cmdshell' option to disabled</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The xp_cmdshell procedure allows an
+               authenticated SQL Server user to execute operating-system command shell commands and
+               return results as rows within the SQL client.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">xp_cmdshell is commonly used by attackers to
+               read or write data to/from the underlying Operating System of a database server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.445780347334221">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Xp_cmdshell', 0;<br/>RECONFIGURE;
+                     GO EXECUTE sp_configure 'show advanced options', 0;<br/>RECONFIGURE;</code>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1018" value-id="xccdf_org.cisecurity.benchmarks_value_3.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1017"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.3_Revoke_Execute_on_xp_dirtree_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_dirtree' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Returns a result set of the directory tree for a
+               given directory path.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               an attacker from performing directory enumeration and listing files and folders to
+               read or write data to / from. This procedure is currently leveraged by several
+               automated SQL Injection tools.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>
+                     <span style="color: #333333; font-family: 'Verdana','sans-serif'; font-size: 9pt;">Revoke use by all general users on the SQL Server machine:</span>
+                  </p>
+                  <code class="pre_0.94091331103567">REVOKE EXECUTE ON xp_dirtree TO PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 150%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1019" value-id="xccdf_org.cisecurity.benchmarks_value_3.3.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1018"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.4_Revoke_Execute_on_xp_enumgroups_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_enumgroups' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">This procedure provides a list of local
+               Microsoft Windows groups or a list of global groups that are defined in a specified
+               Windows machine.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will limit
+               an attacker#x2019;s ability to identify the Windows groups present on the SQL Server
+               machine. This procedure is currently leveraged by several automated SQL Injection
+               tools.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>
+                     <span style="color: #333333; font-family: 'Verdana','sans-serif'; font-size: 9pt;">Revoke use by all general users on the SQL Server machine:</span>
+                  </p>
+                  <code class="pre_0.8284774666877813">REVOKE EXECUTE ON xp_enumgroups to PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 115%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-ansi-language: EN-CA; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA; mso-bidi-language: AR-SA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1020" value-id="xccdf_org.cisecurity.benchmarks_value_3.4.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1019"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.5_Revoke_Execute_on_xp_fixeddrives_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_fixeddrives' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Returns a list of all hard drives on the machine
+               and the space free in megabytes for each drive.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               an attacker from viewing local available drives for directory and file
+               enumeration.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.5824181502167988">REVOKE EXECUTE ON xp_fixeddrives TO PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 115%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-ansi-language: EN-CA; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA; mso-bidi-language: AR-SA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1021" value-id="xccdf_org.cisecurity.benchmarks_value_3.5.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1020"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.6_Revoke_Execute_on_xp_servicecontrol_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_servicecontrol' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Can be used to start and stop windows services
+               running on the SQL Server machine.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Can be used by a remote attacker to shutdown
+               Windows services associated with Anti-virus products or firewalls to loosen the
+               security posture of a database server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general us</p>
+                  <code class="pre_0.08700196296194074">REVOKE EXECUTE ON xp_servicecontrol TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 115%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1022" value-id="xccdf_org.cisecurity.benchmarks_value_3.6.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1021"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.7_Revoke_Execute_on_xp_subdirs_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_subdirs' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Lists all subdirectories listed for a given
+               folder path.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               an attacker from performing directory enumeration and listing all subdirectories on
+               the file system for a given directory path. This is information that an attacker
+               would be able to make use of to determine where key OS files are located.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>
+                     <span style="color: #333333; font-family: 'Verdana','sans-serif'; font-size: 9pt;">Revoke use by all general users on the SQL Server machine:</span>
+                  </p>
+                  <code class="pre_0.14362510134245965">REVOKE EXECUTE ON xp_subdirs TO PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 150%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1023" value-id="xccdf_org.cisecurity.benchmarks_value_3.7.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1022"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.8_Revoke_Execute_on_xp_regaddmultistring_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regaddmultistring' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Adds multiple strings to the server's
+               registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from writing to the Windows registry via SQL Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.5344149192456488">REVOKE EXECUTE ON xp_regaddmultistring TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 150%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1024" value-id="xccdf_org.cisecurity.benchmarks_value_3.8.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1023"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.9_Revoke_Execute_on_xp_regdeletekey_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regdeletekey' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes registry keys from the server's
+               registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from deleting values from the Windows registry via SQL Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.7222254570872508">REVOKE EXECUTE ON xp_regdeletekey TO
+                     PUBLIC;</code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 115%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1025" value-id="xccdf_org.cisecurity.benchmarks_value_3.9.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1024"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.10_Revoke_Execute_on_xp_regdeletevalue_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regdeletevalue' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Deletes values from the server's registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from deleting values from the Windows registry via SQL Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine: </p>
+                  <code class="pre_0.35747385040072477">REVOKE EXECUTE ON xp_regdeletevalue TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 115%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-ansi-language: EN-CA; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA; mso-bidi-language: AR-SA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1026" value-id="xccdf_org.cisecurity.benchmarks_value_3.10.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1025"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.11_Revoke_Execute_on_xp_regenumvalues_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regenumvalues' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enumerates a set of values from a provided
+               registry path.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from enumerating and reading registry values.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.19484427286110606">REVOKE EXECUTE ON xp_regenumvalues TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 115%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-ansi-language: EN-CA; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA; mso-bidi-language: AR-SA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1027" value-id="xccdf_org.cisecurity.benchmarks_value_3.11.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1026"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.12_Revoke_Execute_on_xp_regremovemultistring_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regremovemultistring' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Removes multiple strings from the server's
+               registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from deleting batch values from the Windows registry via SQL
+               Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.03381409160817417">REVOKE EXECUTE ON xp_regremovemultistring TO
+                     PUBLIC; </code>
+                  <p>
+                     <span style="color: #333333; line-height: 115%; font-family: 'Verdana','sans-serif'; font-size: 9pt; mso-ansi-language: EN-CA; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA; mso-bidi-language: AR-SA;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1028" value-id="xccdf_org.cisecurity.benchmarks_value_3.12.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1027"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.13_Revoke_Execute_on_xp_regwrite_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regwrite' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Writes key values to the server's registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from writing to the Windows registry via SQL Server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.745415574870664">REVOKE EXECUTE ON xp_regwrite TO PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 150%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1029" value-id="xccdf_org.cisecurity.benchmarks_value_3.13.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1028"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_3.14_Revoke_Execute_on_xp_regread_to_PUBLIC" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke Execute on 'xp_regread' to PUBLIC</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Reads key values from the server's registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring this procedure is disabled will prevent
+               a SQL Server user from enumerating and reading registry values. This procedure is
+               leveraged by several automated SQL injection tools.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Revoke use by all general users on the SQL Server machine:</p>
+                  <code class="pre_0.6146555291506457">REVOKE EXECUTE ON xp_regread TO PUBLIC; </code>
+                  <p>
+                     <span style="font-family: Verdana, sans-serif; font-size: 9pt; line-height: 115%;">Note: Server logins within the sysadmin role will retain use of this
+                        procedure.</span>
+                  </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1030" value-id="xccdf_org.cisecurity.benchmarks_value_3.14.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1029"/>
+         </check>
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_4_Authentication_and_Authorization">
+      <title xml:lang="en">Authentication and Authorization</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">[This space intentionally left blank]</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_4.1_Set_The_Server_Authentication_Property_To_Windows_Authentication_mode" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set The 'Server Authentication' Property To Windows Authentication
+            mode</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Uses Windows Authentication to validate
+               attempted connections.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Windows provides a more robust authentication
+               mechanism than SQL Server authentication.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Perform the following steps:</p>
+                  <ol>
+                     <li>Open SQL Server Management Studio.</li>
+                     <li>Open the Object Explorer tab and connect to the target database
+                        instance.</li>
+                     <li>Right click the instance name and select Properties.</li>
+                     <li>Select the Security page from the left menu.</li>
+                     <li>Set the Server authentication setting to Windows Authentication mode.</li>
+                  </ol>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1031" value-id="xccdf_org.cisecurity.benchmarks_value_4.1.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1030"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_4.2_Revoke_CONNECT_permissions_on_the_guest_user_within_all_SQL_Server_databases_excluding_the_master_msdb_and_tempdb" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Revoke CONNECT permissions on the 'guest user' within all SQL Server
+            databases excluding the master, msdb and tempdb</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Removes the right of guest users to connect to
+               SQL Server user databases.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">A login assumes the identity of the guest user
+               when a login has access to SQL Server but does not have access to a database through
+               its own account and the database has a guest user account. Revoking the connect
+               permission for the guest user will ensure that a login is not able to access database
+               information without explicit access to do so.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>The following code snippet revokes CONNECT permissions from the guest user in a
+                        database:<span> </span>
+                  </p>
+                  <p> </p>
+                  <code class="pre_0.7549733251798898">USE
+                     [<em>database_name</em>];<br/>GO<br/>REVOKE CONNECT FROM guest; </code>
+                  <p> </p>
+                  <p> </p>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>When CONNECT permission to the guest user is revoked, a SQL Server instance
+                     login must be mapped to a database user explicitly in order to have access to
+                     the database.</p>
+               </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1032" value-id="xccdf_org.cisecurity.benchmarks_value_4.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1031"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_4.3_Drop_Orphaned_Users_From_SQL_Server_Databases" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Drop Orphaned Users From SQL Server Databases</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">A database user for which the corresponding SQL
+               Server login is undefined or is incorrectly defined on a server instance cannot log
+               in to the instance and is referred to as orphaned and should be removed.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Orphan users should be removed to avoid
+               potential misuse of those broken users in any way.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL query to remove an orphan user:</p>
+                  <code class="pre_0.6513717343702934" style="font-size: 12px;">DROP USER
+                     &lt;username&gt;;</code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1033" value-id="xccdf_org.cisecurity.benchmarks_value_4.3.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1032"/>
+         </check>
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_5_Password_Policies">
+      <title xml:lang="en">Password Policies</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">[This space intentionally left blank]</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_5.1_Set_the_MUST_CHANGE_Option_to_ON_for_All_SQL_Authenticated_Logins" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Set the 'MUST_CHANGE' Option to ON for All SQL Authenticated
+            Logins</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Server will prompt for an updated password
+               the first time the altered login is used.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Enforcing password change will prevent the
+               account administrators or anyone accessing the initial password to misuse the SQL
+               login created without being noticed.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Set the MUST_CHANGE option for SQL Authenticated logins</p>
+                  <code class="pre_0.743132418434861">ALTER LOGIN login_name WITH PASSWORD =
+                     password_value MUST_CHANGE;</code>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>CHECK_EXPIRATION and CHECK_POLICY options must both be ON</p>
+               </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_5.2_Set_the_CHECK_EXPIRATION_Option_to_ON_for_All_SQL_Authenticated_Logins_Within_the_Sysadmin_Role" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'CHECK_EXPIRATION' Option to ON for All SQL Authenticated
+            Logins Within the Sysadmin Role</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Applies the same password expiration policy used
+               in Windows to passwords used inside SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring SQL logins comply with the secure
+               password policy applied by the Windows Server Benchmark will ensure the passwords for
+               SQL logins with Sysadmin privileges are changed on a frequent basis to help prevent
+               compromise via a brute force attack.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <code class="pre_0.743132418434861">ALTER LOGIN [login_name] WITH CHECK_EXPIRATION
+                     = ON;</code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1034" value-id="xccdf_org.cisecurity.benchmarks_value_5.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1033"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_5.3_Set_the_CHECK_POLICY_Option_to_ON_for_All_SQL_Authenticated_Logins" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'CHECK_POLICY' Option to ON for All SQL Authenticated
+            Logins</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Applies the same password complexity policy used
+               in Windows to passwords used inside SQL Server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Ensuring SQL logins comply with the secure
+               password policy applied by the Windows Server Benchmark will ensure SQL logins are
+               not blank and cannot be easily compromised via brute force attack.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <code class="pre_0.743132418434861">ALTER LOGIN [login_name] WITH CHECK_POLICY =
+                     ON;</code>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1035" value-id="xccdf_org.cisecurity.benchmarks_value_5.3.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1034"/>
+         </check>
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_6_Auditing_and_Logging">
+      <title xml:lang="en">Auditing and Logging</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">SQL Server audit and logging configuration
+            settings.</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_6.1_Set_the_Maximum_number_of_error_log_files_setting_to_greater_than_or_equal_to_12" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Set the 'Maximum number of error log files' setting to greater than or
+            equal to 12</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">SQL Server errorlog files must be protected from
+               loss. The log files must be backed up before they are overwritten.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The SQL Server errorlog contains important
+               information about major server events and login attempt information as well.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Adjust the number of logs to prevent data loss. The default value of 6 may be
+                     insufficient for a production environment.</p>
+                  <ol>
+                     <li>Open SQL Server Management Studio.</li>
+                     <li>Open Object Explorer and connect to the target instance.</li>
+                     <li>Navigate to the Management tab in Object Explorer and expand. Right click
+                        on the SQL Server Logs file and select Configure</li>
+                     <li>Check the Limit the number of error log files before they are recycled</li>
+                     <li>Set the Maximum number of error log files to greater than or equal to
+                        12<br/>
+                     </li>
+                  </ol>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_6.2_Set_the_Default_Trace_Enabled_Server_Configuration_Option_to_1" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'Default Trace Enabled' Server Configuration Option to
+            1</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">The default trace provides audit logging of
+               database activity including account creations, privilege elevation and execution of
+               DBCC commands.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Default trace provides valuable audit
+               information regarding security-related activities on the server.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Run the following T-SQL command:</p>
+                  <code class="pre_0.5363332290857131">EXECUTE sp_configure 'show advanced options',
+                     1;<br/>RECONFIGURE;<br/>EXECUTE sp_configure 'Default trace enabled',
+                     1;<br/>RECONFIGURE;<br/>GO<br/>EXECUTE sp_configure 'show advanced options',
+                     0;<br/>RECONFIGURE; </code>
+                  <p> </p>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1036" value-id="xccdf_org.cisecurity.benchmarks_value_6.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:1037" value-id="xccdf_org.cisecurity.benchmarks_value_6.2.2_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1035"/>
+         </check>
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_6.3_Set_Login_Auditing_to_Both_failed_and_successful_logins" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Set 'Login Auditing' to Both failed and successful logins</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Setting logs both successful and failed login
+               SQL Server authentication attempts.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Logging successful and failed logins provides
+               key information that can be used to detect\confirm password guessing attacks.
+               Further, logging successful login attempts can be used to confirm server access
+               during forensic investigations.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>Perform the following steps to set the level of auditing:</p>
+                  <ol>
+                     <li>Open SQL Server Management Studio.</li>
+                     <li>Right click the target instance and select Properties and navigate to the
+                        Security tab.</li>
+                     <li>Select the option <span class="inline_block">Both failed and successful
+                           logins </span>under the "Login Auditing" section and click OK.</li>
+                     <li>Restart the SQL Server instance. </li>
+                  </ol>
+               </p>
+               <p> </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+   </Group>
+   <Group id="xccdf_org.cisecurity.benchmarks_group_7_Application_Development">
+      <title xml:lang="en">Application Development</title>
+      <description xml:lang="en">
+         <p xmlns="http://www.w3.org/1999/xhtml">[This space intentionally left blank]</p>
+      </description>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_7.1_Sanitize_Database_and_Application_User_Input" role="unscored" selected="false" weight="0.0">
+         <title xml:lang="en">Sanitize Database and Application User Input</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Always validate user input received from a
+               database client or application by testing type, length, format, and range prior to
+               transmitting it to the database server.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml" class="MsoNormal" style="line-height: 150%; margin: 0cm 0cm 6pt;">
+               <span style="line-height: 150%; font-family: 'Verdana','sans-serif'; color: #333333; font-size: 9pt; mso-fareast-font-family: 'Times New Roman'; mso-bidi-font-family: 'Times New Roman'; mso-fareast-language: EN-CA;">Sanitizing user input drastically minimizes risk of SQL injection.</span>
+            </p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <p>The following steps can be taken to remediate SQL injection
+                     vulnerabilities:</p>
+                  <ul>
+                     <li>Review TSQL and application code for SQL Injection</li>
+                     <li>Only permit minimally privileged accounts to send user input to the
+                        server</li>
+                     <li>Minimize the risk of SQL injection attack by using parameterized commands
+                        and stored procedures</li>
+                     <li>Reject user input containing binary data, escape sequences, and comment
+                        characters</li>
+                     <li>Always validate user input and do not use it directly to build SQL
+                        statements</li>
+                  </ul>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>Sanitize user input may require changes to application code or database object
+                     syntax. These changes can require applications or databases to be taken
+                     temporarily off-line. Any change to TSQL or application code should be
+                     thoroughly tested in testing environment before production implementation.</p>
+               </p>
+            </div>
+         </fixtext>
+
+      </Rule>
+      <Rule id="xccdf_org.cisecurity.benchmarks_rule_7.2_Set_the_CLR_Assembly_Permission_Set_to_SAFE_ACCESS_for_All_CLR_Assemblies" role="full" selected="false" weight="1.0">
+         <title xml:lang="en">Set the 'CLR Assembly Permission Set' to SAFE_ACCESS for All CLR
+            Assemblies</title>
+         <description xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Setting CLR Assembly Permission Sets to
+               SAFE_ACCESS will prevent assemblies from accessing external system resources such as
+               files, the network, environment variables, or the registry.</p>
+         </description>
+         <rationale xml:lang="en">
+            <p xmlns="http://www.w3.org/1999/xhtml">Assemblies with EXTERNAL_ACCESS or UNSAFE
+               permission sets can be used to access sensitive areas of the operating system, steal
+               and/or transmit data and alter the state and other protection measures of the
+               underlying Windows Operating System.</p>
+         </rationale>
+         <fixtext xml:lang="en">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+               <p>
+                  <code>ALTER ASSEMBLY assembly_name WITH PERMISSION_SET = SAFE;</code>
+               </p>
+               <p class="bold">Impact:</p>
+               <p>
+                  <p>The remediation measure should first be tested within a test environment prior
+                     to production to ensure the assembly still functions as designed with SAFE
+                     permission setting.</p>
+               </p>
+            </div>
+         </fixtext>
+         <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+            <check-export export-name="oval:org.cisecurity.mssql:var:1038" value-id="xccdf_org.cisecurity.benchmarks_value_7.2.1_var"/>
+            <check-export export-name="oval:org.cisecurity.mssql:var:2000000" value-id="xccdf_org.cisecurity_value_jdbc.url"/>
+            <check-content-ref href="CIS_Microsoft_SQL_Server_2008_R2_Database_Engine_Benchmark_v1.1.0-oval.xml" name="oval:org.cisecurity.mssql:def:1036"/>
+         </check>
+      </Rule>
+   </Group>
+<xccdf:signature><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+<ds:Reference URI="">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+<ds:DigestValue>89AT5uyKaL4viuJ46j2jRfhu9Og=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+Uag/NAcNSikRrPw/YHXrx1QUR8tlT2v4E1+EiJiYucAfGtStYA0Hp067735g1G6wMh0eWaV7wr0I
+J3Wkr/g8rnztYqQAHTy6PDLkuIeD6dvASZJ1uwxiQAzcoFybnE6eu3sg+aL4ZNSDfQ4YykidOUgU
+u1Wb+Qqw/ymMHNXJWerjHYmHZpOSPydw0vPcBog5D02tZoOAmIVOYqYM9fbTH1K5EE1Ry6IhRTdq
+/CAwwJdgDHZsCYv2mJdxPfXgPlvi8qk6wkkTc4nn/fHApEZJ10Xq2aPj30Git7DrO4VFyHRRLfPY
+fMoRDBkAXT9dGX5GZse0co7y3F25xN0kRMDxsw==
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIFgTCCBGmgAwIBAgIHTpaZgMKaSTANBgkqhkiG9w0BAQUFADCByjELMAkGA1UEBhMCVVMxEDAO
+BgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxGjAYBgNVBAoTEUdvRGFkZHkuY29t
+LCBJbmMuMTMwMQYDVQQLEypodHRwOi8vY2VydGlmaWNhdGVzLmdvZGFkZHkuY29tL3JlcG9zaXRv
+cnkxMDAuBgNVBAMTJ0dvIERhZGR5IFNlY3VyZSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTERMA8G
+A1UEBRMIMDc5NjkyODcwHhcNMTExMDI4MDA0ODE5WhcNMTQxMDIwMTg1NzQ0WjCBqzELMAkGA1UE
+BhMCVVMxCzAJBgNVBAgTAk5ZMRcwFQYDVQQHEw5FYXN0IEdyZWVuYnVzaDErMCkGA1UEChMiQ2Vu
+dGVyIGZvciBJbnRlcm5ldCBTZWN1cml0eSwgSW5jLjEcMBoGA1UECxMTU2VjdXJpdHkgQmVuY2ht
+YXJrczErMCkGA1UEAxMiQ2VudGVyIGZvciBJbnRlcm5ldCBTZWN1cml0eSwgSW5jLjCCASIwDQYJ
+KoZIhvcNAQEBBQADggEPADCCAQoCggEBAM3pRYAwc3256yOREkYDNOpyZ6u9Mq2J8RjxZWwaYeHo
+kkYNt9whMfUWNl+MUs+YI8efEpebFBSApmguSqP5Jmm9k/TujDAdXxc9gZPFZ9y4TprFJQLhDODq
+BsROSRLsDexOYO2ObiyElLQkxFGswWEIxfLTzlc7dmx+TjW3JQ/hB48SoLNjBruhEwatYn8cUD7G
++2GoRhFNQA+Y+put0my2JB5Wp8nAN9b9hwTBwFhmT0EvrurzFkwkq+HvIvD18kW9JeN5d7xLblLR
+RwfROIUU1X9TZ4IOokl0YCayA8UpoQGqcdSpQj60XqgX9snkpGJ/OW0sSgE43au7Suv7lEUCAwEA
+AaOCAYcwggGDMA8GA1UdEwEB/wQFMAMBAQAwEwYDVR0lBAwwCgYIKwYBBQUHAwMwDgYDVR0PAQH/
+BAQDAgeAMDMGA1UdHwQsMCowKKAmoCSGImh0dHA6Ly9jcmwuZ29kYWRkeS5jb20vZ2RzNS0xNi5j
+cmwwUwYDVR0gBEwwSjBIBgtghkgBhv1tAQcXAjA5MDcGCCsGAQUFBwIBFitodHRwOi8vY2VydGlm
+aWNhdGVzLmdvZGFkZHkuY29tL3JlcG9zaXRvcnkvMIGABggrBgEFBQcBAQR0MHIwJAYIKwYBBQUH
+MAGGGGh0dHA6Ly9vY3NwLmdvZGFkZHkuY29tLzBKBggrBgEFBQcwAoY+aHR0cDovL2NlcnRpZmlj
+YXRlcy5nb2RhZGR5LmNvbS9yZXBvc2l0b3J5L2dkX2ludGVybWVkaWF0ZS5jcnQwHwYDVR0jBBgw
+FoAU/axhMpNsRdbi7oVfmrrndplozOcwHQYDVR0OBBYEFNDAxH3/Taf9tzHlDs5Zq75l5hJUMA0G
+CSqGSIb3DQEBBQUAA4IBAQB9lpDSk+p6XsgqywQeO9hrf87NBqadyUDekmDWAKNDIu6J7d7MbxO7
+V7CHwwlVXjCXUyUaydhG95sZKL2MqkVmc3Fh9u0dlXd3Qb3WVEZy9qa/nf8RgPLFYLz2FWdN6qdp
+lIfII0Zwt5xlVg0boI91JdPmmQMHxxO6oi0Iogezx9dDNLfecwtURIwKSaB0uC37QTKgl+K61ICc
+TxGibW5R5FGi8CHeM2VnbEolWMWiHhL00DWHPTjjeAJJrcf2bB+8/QxfNdAC9vTmv9O1dlKSHkkT
+2DyaM/kkbJjfPjm3CluH4Y6kao4vrxz+edmZ0q8WniufSJ6XZdNhtkMTgZt2
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+zelFgDBzfbnrI5ESRgM06nJnq70yrYnxGPFlbBph4eiSRg233CEx9RY2X4xSz5gjx58Sl5sUFICm
+aC5Ko/kmab2T9O6MMB1fFz2Bk8Vn3LhOmsUlAuEM4OoGxE5JEuwN7E5g7Y5uLISUtCTEUazBYQjF
+8tPOVzt2bH5ONbclD+EHjxKgs2MGu6ETBq1ifxxQPsb7YahGEU1AD5j6m63SbLYkHlanycA31v2H
+BMHAWGZPQS+u6vMWTCSr4e8i8PXyRb0l43l3vEtuUtFHB9E4hRTVf1Nngg6iSXRgJrIDxSmhAapx
+1KlCPrReqBf2yeSkYn85bSxKATjdq7tK6/uURQ==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+</ds:Signature></xccdf:signature></Benchmark>

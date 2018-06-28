@@ -1,0 +1,105 @@
+# Set password for multiple users
+kinit
+for USER in $(cat userlist.in)
+do
+yes P@55w0rd! | ipa passwd ${USER}
+done
+
+# Manually start services (stop in reverse order, ie 1st stop is ipa-dnskeysyncd)
+systemctl start dirsrv.target
+systemctl start krb5kdc
+systemctl start kadmin
+systemctl start named-pkcs11
+systemctl start ipa_memcached
+systemctl start httpd
+systemctl start ipa-custodia
+systemctl start pki-tomcatd.target
+systemctl start sssd
+systemctl start smb
+systemctl start winbind
+systemctl start ipa-otpd.socket
+systemctl start ipa-dnskeysyncd
+
+# Query LDAP
+ldapsearch -x -h ms.starkey.com -p 3268 -b dc=ms,dc=starkey,dc=com -D "CN=Svc IDMTst,OU=Service,DC=ms,DC=starkey,DC=com" -W -x sAMAccountName=johnsjef
+
+# default domain login
+# https://access.redhat.com/solutions/1614103
+Issue
+
+In IPA-AD trust environment, how do I make sure that trusted AD users would be able to login without domain component on IPA client?
+For IPA -AD trust, set up an environment where Active Directory can be used as the primary user authentication source. Most user accounts would be stored in Active Directory with a handful of special purpose, Linux specific accounts (build accounts, for example) stored in IdM. When logging into a Linux IdM client with an Active Directory account, it is necessary to log in as aduser@ad.domain.com. This would be cumbersome for our end users and potentially lead to a number of transition issues.
+Resolution
+
+At the moment, there is no way to use non-qualified names for both, either of domains must be qualified. By default it's FQDNs for AD accounts, using default_domain_suffix reverts that behaviour.
+
+Reverting this behaviour will allow trusted AD users to login without domain component on RHEL systems(IPA clients), however IPA users will have to use ipauser@ipa.domain.com format for login purpose. To revert the default behaviour set default_domain_suffix = ad.domain.com in [sssd] section:
+
+Raw
+[sssd]
+services = nss, sudo, pam, ssh
+config_file_version = 2
+
+domains =ipa.domain.com    <- Red Hat IdM domain
+default_domain_suffix = ad.domain.com    <-AD domain
+use_fully_qualified_names = True
+
+# Repair 'ipa: ERROR: hostname.domain.com: host not found" errors; WebUI shows server, but deletion fails and host doesn't authenticate
+#from IPA server (ep1p-apux07.ux.starkey.com)
+ldapsearch -LL -Y GSSAPI -b "dc=ux,dc=starkey,dc=com" > /tmp/starkey.com
+view /tmp/starkey.com -> search for hostname to delete, could be multiple entries for same hostname
+#entry will look like:
+dn: fqdn=ep1t-apcq322.starkey.com+nsuniqueid=7d50ec97-8fca11e6-a090b309-14ffc5de,cn=computers,cn=accounts,dc=ux,dc=starkey,dc=com
+#Delete each entry for the hostname in ldap:
+ldapdelete -x -D "cn=Directory Manager" -W "dn: fqdn=ep1t-apcq322.starkey.com+nsuniqueid=7d50ec97-8fca11e6-a090b309-14ffc5de,cn=computers,cn=accounts,dc=ux,dc=starkey,dc=com"
+# Log into the WebUI and verify the host is gone from the hosts list
+# Re-install the IPA Client on the client server
+ipa-client-install --uninstall
+ipa-client-isntall --domain=UX.STARKEY.COM hostname=hostname.starkey.com --mkhomedir --no-ntp
+
+# Replicas
+# https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Identity_Management_Guide/ipa-replica-manage.html
+ipa-replica-manage list
+ipa-replica-manage force-sync --from ep1p-apux07.ux.starkey.com
+ipa-replica-manage re-initialize --from ep1p-apux07.ux.starkey.com
+
+# rngd.service entropy
+sudo cp /usr/lib/systemd/system/rngd.service /etc/systemd/system/
+sudo vim /etc/systemd/system/rngd.service
+ replace :
+   ExecStart=/sbin/rngd -f
+   with
+   ExecStart=/sbin/rngd -f -r /dev/urandom -o /dev/random
+sudo systemctl daemon-reload
+sudo systemctl start rngd.service
+
+# Add HTTP service to RHIM
+on client, configure HTTP application (Apache, cups, etc...) to use KRB5
+# CUPS
+   vim /etc/cups/cupsd.conf:
+      # Default authentication type, when authentication is required
+      DefaultAuthType Basic
+      Krb5Keytab /etc/cups/cups.keytab
+      # Administrator user groups (printeradmin is a local group, printer_admins is in RHIM)
+      SystemGroup printeradmin printer_admins
+
+on IPA server, create the service that will provide the authentication mechanism
+   ipa service-add HTTP/viking.starkey.com
+on client, generate the keytab for the application will use
+   ipa-getkeytab -s ep1p-apux07.ux.starkey.com -p HTTP/ep1d-apcups01.starkey.com -k /etc/cups/cups.keytab -e aes256-cts
+restart HTTP application
+
+# Enable local authentication if it's not working correctly
+authconfig --enablelocauthorize --update
+
+#automate RHIM client add
+on IPA server: ipa host-add clienthostname.starkey.com --password=St@rk3y!
+in kickstart or on client: /usr/sbin/ipa-client-install --domain=UX.STARKEY.COM --mkhomedir -w St@rk3y! --unattended
+
+# Convert client to 'mkhomedir'
+authconfig --enablemkhomedir --update
+
+# Resolve caching issues (force update of sudo)
+service sssd stop; rm -f /var/lib/sss/db/*; service sssd start
+sss_cache -E
+

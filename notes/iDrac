@@ -1,0 +1,18 @@
+# Change hostname in idrac
+$ ssh johnsjef@ms.starkey.com@cn1p-sasop01-idrac.starkey.com                                                                                     
+The authenticity of host 'cn1p-sasop01-idrac.starkey.com (10.224.33.109)' can't be established.
+ECDSA key fingerprint is SHA256:yzMRhi65YJLIQlkPwSLgeNlNURPnMp57U7+75voBKFQ.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'cn1p-sasop01-idrac.starkey.com,10.224.33.109' (ECDSA) to the list of known hosts.
+johnsjef@ms.starkey.com@cn1p-sasop01-idrac.starkey.com's password:
+/admin1-> racadm config -g ifcRacManagedNodeOs -o ifcRacMnOsHostname cn1p-sasop01
+Object value modified successfully
+
+
+RAC1169: The RACADM "config" command will be deprecated in a
+future version of iDRAC firmware. Run the RACADM
+"racadm set" command to configure the iDRAC configuration parameters.
+For more information on the set command, run the RACADM command
+"racadm help set".
+
+/admin1-> racadm config -g ifcRacManagedNodeOs -o ifcRacMnOsHostname cn1p-sasop01.starkey.com

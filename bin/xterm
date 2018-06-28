@@ -1,0 +1,122 @@
+#!/usr/bin/ksh
+
+#xterm -sl 50000 -bg steelblue -fg black -geometry 145x30 -sb -rightbar -e /usr/bin/ksh &
+#exec xterm -ls -sl 50000 -sb -bg black -fg green -geometry 100x30 &
+#
+#
+
+SCROLLLENGTH=50000
+BGROUND="black"
+#BGROUND="white"
+GMTRY="145x30"
+
+user=`whoami`
+
+if [ "$3" = "" ]
+then
+	UNIXID="johnsjef"
+#	UNIXID="root"
+else
+	UNIXID="$3"
+fi
+#
+
+#echo $UNIXID
+platform=`uname`
+#echo $platform
+
+#the following lines are for linux/cygwin
+if [ "${platform}" = "linux" ]
+then
+#	/usr/X11R6/bin/xrdb -merge /home/${user}/.Xresources
+	xmodmap -e "pointer = 1 3 2 4 5 6 7"
+	xhost + > /dev/null
+	XTERM=/usr/bin/xterm
+	XOPTS="-sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb -rightbar"
+	#XOPTS="-sl 50000 -bg black -geometry 145x30 -sb -rigthbar"
+elif [ "${platform}" = "CYGWIN_NT-10.0" ]
+then
+#	/usr/bin/xrdb -merge /home/${user}/.Xresources
+	xmodmap -e "pointer = 1 3 2 4 5 6 7"
+        xhost + > /dev/null
+        XTERM=/usr/bin/xterm
+	XOPTS="-sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb -rightbar +tb"
+        #XOPTS="-sl 50000 -bg black -geometry 145x30 -sb -rightbar +tb"
+elif [ "${platform}" = "CYGWIN_NT-6.1-WOW64" ]
+then
+#	/usr/bin/xrdb -merge /home/${user}/.Xresources
+	xmodmap -e "pointer = 1 3 2 4 5 6 7"
+        xhost + > /dev/null
+        XTERM=/usr/bin/xterm
+	XOPTS="-sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb -rightbar +tb"
+        #XOPTS="-sl 50000 -bg black -geometry 145x30 -sb -rightbar +tb"
+elif [ "${platform}" = "CYGWIN_NT-6.1" ]
+then
+#        /usr/bin/xrdb -merge /home/${user}/.Xresources
+        xmodmap -e "pointer = 1 3 2 4 5 6 7 8 9 10"
+        xhost + > /dev/null
+        XTERM=/usr/bin/xterm
+	XOPTS="-sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb -rightbar +tb"
+        #XOPTS="-sl 50000 -bg black -geometry 145x30 -sb -rightbar +tb"
+elif [ "${platform}" = "SunOS" ]
+then
+#	/usr/openwin/bin/xrdb -merge /home/uss/${user}/.Xdefaults
+	xmodmap -e "pointer = 1 3 2"
+	/usr/openwin/bin/xhost + > /dev/null
+	XTERM=/usr/openwin/bin/xterm
+	XOPTS="-ls -sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb"
+	#XOPTS="-ls -sl 50000 -sb -bg black -geometry 145x30 " 
+else
+	echo "Unknown OS, using default xterm"
+	XTERM=`which xterm`
+	XOPTS="-ls -sl ${SCROLLLENGTH} -bg ${BGROUND} -geometry ${GMTRY} -sb"
+        #XOPTS="-ls -sl 50000 -sb -bg black -geometry 145x30 "
+fi
+
+OPT=`date +%S|cut -c2`
+case "${OPT}"
+in
+	0) COLOR=white;;
+	1) COLOR=gold;;
+	2) COLOR=green;;
+	3) COLOR=yellow;;
+	4) COLOR=red;;
+	5) COLOR=white;;
+	6) COLOR=orange;;
+	7) COLOR=lightseagreen;;
+	8) COLOR=gold;;
+	9) COLOR=green;;
+esac
+
+if [ -z $2 ]
+then
+	case $1 in
+		'g')	${XTERM} ${XOPTS} -T `hostname` -fg green &;;
+	        'st')	${XTERM} ${XOPTS} -T `hostname` -fg steelblue &;;
+	        'or')	${XTERM} ${XOPTS} -T `hostname` -fg orange &;;
+	        'pi')	${XTERM} ${XOPTS} -T `hostname` -fg pink &;;
+	        'sl')	${XTERM} ${XOPTS} -T `hostname` -fg slategray &;;
+	        'ol')	${XTERM} ${XOPTS} -T `hostname` -fg olivedrab &;;
+	        're')	${XTERM} ${XOPTS} -T `hostname` -fg red &;;
+	        'y')	${XTERM} ${XOPTS} -T `hostname` -fg yellow &;;
+		'pu')	${XTERM} ${XOPTS} -T `hostname` -fg purple &;;
+		*)	${XTERM} ${XOPTS} -T `hostname` -fg ${COLOR} &;;
+	esac
+else
+	case $1 in
+		'g')	${XTERM} ${XOPTS} -fg green -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'st')	${XTERM} ${XOPTS} -fg steelblue -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'or')	${XTERM} ${XOPTS} -fg orange -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'pi')	${XTERM} ${XOPTS} -fg pink -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'sl')	${XTERM} ${XOPTS} -fg slategray -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'ol')	${XTERM} ${XOPTS} -fg olivedrab -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		're')	${XTERM} ${XOPTS} -fg red -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'y')	${XTERM} ${XOPTS} -fg yellow -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+		'pu')	${XTERM} ${XOPTS} -fg purple -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$"&;;
+                'r')	${XTERM} ${XOPTS} -fg ${COLOR} -T $2 -e "ssh -Y ${UNIXID}@$2 -e \$" &;;
+		*)
+	                echo "USAGE: $0 { g(reen) | st(eel) | or(ange) | pi(nk) | sl(ate) | ol(ive) | re(d) | y(ellow) | pu(rple) | r(andom) } hostname "
+			exit 1
+			;;
+	esac
+fi

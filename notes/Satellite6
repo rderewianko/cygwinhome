@@ -1,0 +1,99 @@
+# REST API
+# obtain the statellite server ca.crt
+wget http://ep1p-apux10.starkey.com/pub/katello-server-ca.crt
+# create NSS database to store the Satellite SSL cert - skip if this already exists
+certutil -N -d sql:$HOME/.pki/nssdb
+Enter a password which will be used to encrypt your keys.
+The password should be at least 8 characters long,
+and should contain at least one non-alphabetic character.
+
+Enter new password:
+Re-enter password:
+# Add the satellite server ca.crt into the NSS database
+certutil -d sql:$HOME/.pki/nssdb -A -t TC -n "Red Hat Satellite" -i katello-server-ca.crt
+Enter Password or Pin for "NSS Certificate DB":
+
+# Search for all content hosts in a host_collection ID=68
+curl -X GET -s -k -u unixadmin:nittfagm https://ep1p-apux10.starkey.com/api/v2/hosts?search=host_collection_id=68 | python -mjson.tool
+
+
+>$ curl -X GET -s -k -u unixadmin:nittfagm https://ep1p-apux10.starkey.com/katello/api/v2/organizations/3/host_collections?search=name=Lab | python -mjson.tool
+{
+    "error": null,
+    "page": 1,
+    "per_page": 20,
+    "results": [
+        {
+            "created_at": "2016-06-15 13:50:16 UTC",
+            "description": "Lab Hosts",
+            "id": 68,
+            "max_hosts": null,
+            "name": "Lab",
+            "organization_id": 3,
+            "permissions": {
+                "deletable": true,
+                "editable": true
+            },
+            "total_hosts": 11,
+            "unlimited_hosts": true,
+            "updated_at": "2016-06-15 13:50:16 UTC"
+        }
+    ],
+    "search": "name=Lab",
+    "sort": {
+        "by": null,
+        "order": null
+    },
+    "subtotal": 1,
+    "total": 53
+}
+# host collection id = 68
+curl -X GET -s -k -u unixadmin:nittfagm https://ep1p-apux10.starkey.com/katello/api/v2/host_collections/68/ | python -mjson.tool
+{
+    "created_at": "2016-06-15 13:50:16 UTC",
+    "description": "Lab Hosts",
+    "host_ids": [
+        103,
+        134,
+        129,
+        101,
+        444,
+        447,
+        448,
+        102,
+        428,
+        426,
+        449
+    ],
+    "id": 68,
+    "max_hosts": null,
+    "name": "Lab",
+    "organization_id": 3,
+    "permissions": {
+        "deletable": true,
+        "editable": true
+    },
+    "total_hosts": 11,
+    "unlimited_hosts": true,
+    "updated_at": "2016-06-15 13:50:16 UTC"
+}
+
+## ESXi Hosts UUIDs
+https://ep3p-invm01.ms.starkey.com/mob/?moid=ha-host&doPath=hardware%2esystemInfo
+
+# Virt-Who (server=Vcenter Server)
+yum install virt-who
+cat << EOF > /etc/virt-who.d/virt
+[vcenter]
+type=esx
+server=<vcenterserver>.ms.starkey.com
+username=svc_satvcenter@ms.starkey.com
+password=J@m0n!t
+# The following owner value comes "subscription-manager identity"
+# "subscription-manager identity" can be ran from the same server that virt-who is running on
+owner=Starkey_Hearing_Technologies
+env=Library
+hypervisor_id=hostname
+EOF
+systemctl enable virt-who
+systemctl start virt-who

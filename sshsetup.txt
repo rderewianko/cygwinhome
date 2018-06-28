@@ -1,0 +1,6 @@
+Your group name is currently "mkgroup_l_d". This indicates that not
+all domain users and groups are listed in the /etc/passwd and
+/etc/group files.
+See the man pages for mkpasswd and mkgroup then, for example, run
+mkpasswd -l -d > /etc/passwd
+mkgroup  -l -d > /etc/group

@@ -1,0 +1,30 @@
+#!/bin/bash
+# Rsync copy to backup files
+#
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Apps/PWsafe/* /cygdrive/h/"My Documents"/Apps/PWsafe/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Notes/* /cygdrive/h/"My Documents"/Notes/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Benefits/* /cygdrive/h/"My Documents"/Benefits/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/"Desktop Notes"/* /cygdrive/h/"My Documents"/"Desktop Notes"/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Internet/* /cygdrive/h/"My Documents"/Internet/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/"Job Search"/* /cygdrive/h/"My Documents"/"Job Search"/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Matrix/* /cygdrive/h/"My Documents"/Matrix/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Orders/* /cygdrive/h/"My Documents"/Orders/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Payments/* /cygdrive/h/"My Documents"/Payments/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Security/* /cygdrive/h/"My Documents"/Security/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/"Server Moves"/* /cygdrive/h/"My Documents"/"Server Moves"/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/"SOP's"/* /cygdrive/h/"My Documents"/"SOP's"/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/Tools/* /cygdrive/h/"My Documents"/Tools/
+sleep 10
+/usr/bin/rsync -az -e --delete --force /cygdrive/c/"Documents and Settings"/jjoh105/"My Documents"/UNIX/* /cygdrive/h/"My Documents"/UNIX/

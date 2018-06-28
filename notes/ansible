@@ -1,0 +1,92 @@
+# Query facts
+ansible au1p-apor02.starkey.com -u ansible -m setup
+# Custom facts query
+ansible au1p-apor02.starkey.com -u ansible -m setup -a "filter=ansible_local"
+
+# Run ansible using the ansible user
+ssh-agent bash
+ssh-add ~/.ssh/id_rsa_ansible
+ansible -u ansible [ hostname.starkey.com | hostgroup ] -m ping
+
+# All commands should be run from ep1p-apux11 using sudo
+# Ad-hoc commands: http://docs.ansible.com/ansible/intro_adhoc.html
+# run puppet agent in all of the 'lab' hosts:
+sudo -u ansible /usr/bin/ansible lab -m shell -u root -a 'puppet agent -t'
+
+# Change root password
+1) log onto Ansible host: ep1p-apux11
+2) Generate password hash:
+python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+3) edit root_password.yaml playbook:
+vim /apps/ansible/playbooks/root_password.yaml
+  change hosts to host group to be changed (can be found in /etc/ansible/hosts); ie lab, web, infra_prod, non-prod:children, etc...
+  change hash in "COMMON_ROOT_PASSWORD" to new hash
+4) Run playbook:
+ansible-playbook /apps/ansible/playbooks/root_password.yaml
+5) Watch for status of updates. Will show changed, ok, failed, unreachable...:
+[ansible@ep1p-apux11 ~]$ ansible-playbook /apps/ansible/playbooks/root_password.yaml
+
+PLAY [lab] *********************************************************************
+
+TASK [Change root password] ****************************************************
+ok: [ep1d-rhel5lab.starkey.com]
+changed: [ep1d-rhel6lab.starkey.com]
+ok: [ep1d-testvm4.starkey.com]
+ok: [ep1d-rhel7lab.starkey.com]
+ok: [ep1d-apux06.starkey.com]
+ok: [ep1p-apux05.starkey.com]
+ok: [ep1t-rhel7a1.starkey.com]
+
+PLAY RECAP *********************************************************************
+ep1d-apux06.starkey.com    : ok=1    changed=0    unreachable=0    failed=0
+ep1d-rhel5lab.starkey.com  : ok=1    changed=0    unreachable=0    failed=0
+ep1d-rhel6lab.starkey.com  : ok=1    changed=1    unreachable=0    failed=0
+ep1d-rhel7lab.starkey.com  : ok=1    changed=0    unreachable=0    failed=0
+ep1d-testvm4.starkey.com   : ok=1    changed=0    unreachable=0    failed=0
+ep1p-apux05.starkey.com    : ok=1    changed=0    unreachable=0    failed=0
+ep1t-rhel7a1.starkey.com   : ok=1    changed=0    unreachable=0    failed=0
+
+# Kerberos
+https://docs.ansible.com/ansible-tower/3.1.3/html/administration/kerberos_auth.html
+[johnsjef@ep1d-aptower01 ~]$ sudo yum -y install python-pip gcc
+[johnsjef@ep1d-aptower01 ~]$ sudo pip install --upgrade pip
+[johnsjef@ep1d-aptower01 ~]$ sudo pip install pywinrm
+[johnsjef@ep1d-aptower01 ~]$ sudo pip install kerberos
+[johnsjef@ep1d-aptower01 ~]$ sudo pip install requests-kerberos
+[johnsjef@ep1d-aptower01 ~]$ sudo vim /etc/krb5.conf.d/ms.starkey.conf -> copy from existing
+
+[johnsjef@ep1d-aptower01 ~]$ ktutil
+ktutil: addent -password -p Svc_AnsSSIAdmn@MS.STARKEY.COM -k 1 -e aes256-cts-hmac-sha1-96
+ktutil: wkt Svc_AnsSSIAdmn.keytab
+ktutil: quit
+[johnsjef@ep1d-aptower01 ~]$ sudo chown awx:awx Svc_AnsSSIAdmn.keytab
+[johnsjef@ep1d-aptower01 ~]$ sudo mkdir -k m 700 /etc/ansible/keys
+[johnsjef@ep1d-aptower01 ~]$ sudo mv Svc_AnsSSIAdmn.keytab /etc/ansible/keys
+[johnsjef@ep1d-aptower01 ~]$ sudo chown -R awx:awx /etc/ansible/keys
+[johnsjef@ep1d-aptower01 ~]$ sudo crontab -u awx -e
+# Refresh of Kerberos Tickets for Ansible every 8 hours
+0 */8 * * * /usr/bin/kinit Svc_AnsSSIAdmn@MS.STARKEY.COM -k -t /etc/ansible/keys/Svc_AnsSSIAdmn.keytab
+[johnsjef@ep1d-aptower01 ~]$ sudo -u awx sh -c "/usr/bin/kinit Svc_AnsSSIAdmn@MS.STARKEY.COM -k -t /etc/ansible/keys/Svc_AnsSSIAdmn.keytab"
+[johnsjef@ep1d-aptower01 ~]$ sudo -u awx sh -c "klist"
+Ticket cache: KEYRING:persistent:990:990
+Default principal: Svc_AnsSSIAdmn@MS.STARKEY.COM
+
+Valid starting       Expires              Service principal
+03/19/2018 09:51:45  03/19/2018 19:51:45  krbtgt/MS.STARKEY.COM@MS.STARKEY.COM
+        renew until 03/26/2018 09:51:45
+
+[johnsjef@ep1d-aptower01 ~]$ cat testwin.ini
+[WIN_Lab]
+ep2d-ssipoc01.ms.starkey.com
+ep2d-ssipoc02.ms.starkey.com
+ep2d-ssipoc03.ms.starkey.com
+ep2d-ssipoc04.ms.starkey.com
+ep2d-ssipoc05.ms.starkey.com
+ep2t-iisdstage1.ms.starkey.com
+
+[WIN_Lab:vars]
+ansible_winrm_server_cert_validation=ignore
+ansible_user = Svc_AnsSSIAdmn@MS.STARKEY.COM
+ansible_connection = winrm
+ansible_port = 5986
+

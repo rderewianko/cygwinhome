@@ -1,0 +1,3 @@
+##### JJOH105 CRONTAB #####
+#
+07 16 * * * /home/jjoh105/bin/rsync-copy.sh

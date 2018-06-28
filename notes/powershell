@@ -1,0 +1,23 @@
+#Wget
+PS C:\Windows\system32> Invoke-WebRequest -Uri "https://collectors.us2.sumologic.com/rest/download/win64" -OutFile "C:\Temp\SumoCollector.exe"
+PS C:\Windows\system32> cd \temp
+PS C:\temp> ls
+
+
+    Directory: C:\temp
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----        3/12/2018   1:54 PM                Certs
+d-----       12/15/2017   1:22 PM                Certs-R2
+d-----        3/12/2018   1:55 PM                Certs2
+-a----        3/11/2018  10:03 AM           5382 EP2P-SCCMMP1.pfx
+-a----        4/20/2018   3:08 PM             41 error.log
+-a----        12/7/2017   1:44 PM              0 no_sms_on_drive.sms
+-a----         1/4/2013   1:24 PM        2474608 Procmon.exe
+-a----        4/20/2018   3:02 PM      122670040 SumoCollecterOLD.exe
+-a----        4/20/2018   3:21 PM      122670040 SumoCollector.exe
+
+
+PS C:\temp> .\SumoCollecterOLD.exe -console -q "-Vsumo.accessid=sufOziL4D8xIEr" "-Vsumo.accesskey=oWpC1IbaFTgD1pJJYxkudeftnCBqgsmD0HlU8EKvO4aXMAokzycIsW562CzoiVUg" "-Vcollector.name=ep2p-sccmmp1"

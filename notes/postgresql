@@ -1,0 +1,32 @@
+sudo yum install rh-postgresql95-postgresql-server
+sudo /opt/rh/rh-postgresql95/root/usr/bin/postgresql-setup initdb
+sudo mount /pgsql
+sudo rsync -avuz /var/opt/rh/rh-postgresql95/ /pgsql
+sudo mv /var/opt/rh/rh-postgresql95 /var/opt/rh/rh-postgresql95.orig
+sudo ln -s /pgsql /var/opt/rh/rh-postgresql95
+sudo vim /pgsql/lib/pgsql/data/postgresql.conf
+sudo vim /pgsql/lib/pgsql/data/pg_hba.conf
+	# "local" is for Unix domain socket connections only
+	local   all             all                                     peer
+	# IPv4 local connections:
+	host    all             all             127.0.0.1/32            md5
+	# IPv6 local connections:
+	host    all             all             ::1/128                 md5
+
+sudo systemctl start rh-postgresql95-postgresql
+sudo systemctl enable rh-postgresql95-postgresql
+sudo su - postgres
+vim .bash_profile
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/rh-postgresql95/root/lib64
+	export LD_LIBRARY_PATH
+/opt/rh/rh-postgresql95/root/bin/psql
+postgres=# create user confluence;
+postgres=# create database confluence owner confluence;
+postgres=# alter role confluence PASSWORD 'w1Ki123';
+postgres=# alter role confluence VALID UNTIL 'infinity';
+
+/opt/rh/rh-postgresql95/root/bin/psql -h localhost -U confluence -W
+
+# export Satellite content host entries from candlepin database
+# sudo su - postgres
+# psql -d candlepin -c "select * from cp_consumer;" > /tmp/candlepin.out

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:oval-def="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd http://oval.mitre.org/XMLSchema/oval-definitions-5#windows windows-definitions-schema.xsd http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd">
+    <generator>
+        <oval:product_name>The OVAL Repository</oval:product_name>
+        <oval:schema_version>5.10.1</oval:schema_version>
+        <oval:timestamp>2013-07-01T21:29:21.214-04:00</oval:timestamp>
+    </generator>
+    <definitions>
+        <definition class="inventory" id="oval:org.mitre.oval:def:15751" version="3">
+            <metadata>
+                <title>Microsoft Internet Explorer 10 is installed</title>
+                <affected family="windows">
+                    <platform>Microsoft Windows 7</platform>
+                    <platform>Microsoft Windows 8</platform>
+                    <platform>Microsoft Windows Server 2008 R2</platform>
+                    <platform>Microsoft Windows Server 2012</platform>
+                    <product>Microsoft Internet Explorer 10</product>
+                </affected>
+                <reference ref_id="cpe:/a:microsoft:ie:10" source="CPE"/>
+                <description>Microsoft Internet Explorer 10 is installed</description>
+                <oval_repository>
+                    <dates>
+                        <submitted date="2012-12-12T12:06:24">
+                            <contributor organization="SecPod Technologies">SecPod Team</contributor>
+                        </submitted>
+                        <status_change date="2012-12-12T18:48:06.560-05:00">DRAFT</status_change>
+                        <status_change date="2012-12-31T04:01:28.400-05:00">INTERIM</status_change>
+                        <status_change date="2013-01-21T04:00:12.780-05:00">ACCEPTED</status_change>
+                    </dates>
+                    <status>ACCEPTED</status>
+                </oval_repository>
+            </metadata>
+            <criteria operator="AND">
+                <criterion comment="Check if Microsoft Internet Explorer 10 is installed" test_ref="oval:org.mitre.oval:tst:80429"/>
+            </criteria>
+        </definition>
+    </definitions>
+    <tests>
+        <registry_test xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" check="all" check_existence="at_least_one_exists" comment="Check if Microsoft Internet Explorer 10 is installed" id="oval:org.mitre.oval:tst:80429" version="1">
+            <object object_ref="oval:org.mitre.oval:obj:23453"/>
+            <state state_ref="oval:org.mitre.oval:ste:19992"/>
+        </registry_test>
+    </tests>
+    <objects>
+        <registry_object xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" comment="Object holds the version of IE 10" id="oval:org.mitre.oval:obj:23453" version="1">
+            <hive>HKEY_LOCAL_MACHINE</hive>
+            <key>SOFTWARE\Microsoft\Internet Explorer</key>
+            <name>svcVersion</name>
+        </registry_object>
+    </objects>
+    <states>
+        <registry_state xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5#windows" comment="State matches if Microsoft Internet Explorer 9 is installed" id="oval:org.mitre.oval:ste:19992" version="1">
+            <value operation="pattern match">^10\..*$</value>
+        </registry_state>
+    </states>
+</oval_definitions>

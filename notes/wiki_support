@@ -1,0 +1,104 @@
+# Clean up extraneous links in MySQL
+sudo service nginx stop; sudo service confluence stop; sudo service rh-mysql56-mysqld stop
+take snapshot
+service rh-mysql56-mysqld start
+
+mysql -u root -p confluence
+
+SELECT * FROM BANDANA WHERE BANDANAKEY LIKE 'applinks%';
+	
+DELETE FROM BANDANA WHERE BANDANAKEY LIKE '%62752005-4161-3445-bf13-ebdcbbf7b714%';
+	
+SELECT BANDANAVALUE FROM BANDANA WHERE BANDANAKEY = 'applinks.global.application.ids';
+
+
+UPDATE BANDANA SET
+BANDANAVALUE = '<list>
+<string>9e60d032-4e5a-3f7c-9c1e-089841f4a2ae</string>
+<string>2f7483fb-ff2c-3ed9-9323-fb04d19580b3</string>
+</list>'
+WHERE BANDANAKEY = 'applinks.global.application.ids';
+
+select BANDANAKEY from BANDANA where BANDANAVALUE like '%Starkey JIRA%';
+
+select * from KEYSTORE where ALIAS like '%6452512%';
+delete from KEYSTORE where ALIAS like '%6452512%';
+	
+select * from BANDANA where BANDANAVALUE like '%6452512%';
+select * from BANDANA where BANDANAKEY like '%6452512%';
+	
+delete from BANDANA where BANDANAVALUE like '%6452512%';
+delete from BANDANA where BANDANAKEY like '%6452512%';
+
+•	After removing the app links from Confluence database, go to JIRA and also remove the JIRA app links to Confluence.
+sudo service confluence start; sudo service nginx start; sudo less +F /wiki/confluence/logs/catalina.out
+•	Go to Confluence administration -> cache management and flush all cache
+•	Recreate the app links from Confluence to JIRA and vice verse.
+•	Check if the gadget feed is still running. If not, add the gadget feed again to Confluence.
+•	Check if the feeds and jira issues are loading. You'll need to authenticate again to reload them.
+
+#Clear Plugin Cache
+/usr/local/bin/confluence-clean-plugin-cache.sh
+or
+shutdown confluence
+delete:
+/wiki/application-data/confluence/bundled-plugins
+/wiki/application-data/confluence/plugins-cache
+/wiki/application-data/confluence/plugins-osgi-cache
+/wiki/application-data/confluence/plugins-temp
+/wiki/application-data/confluence/bundled-plugins_language
+start confluence
+
+#Upgrade
+1) Download recent Confluence for Linux 64bit package from Atlassian: https://www.atlassian.com/software/confluence/download
+2) Prepare for upgrade: Atlassian documentation can be found at https://confluence.atlassian.com/doc/confluence-installation-and-upgrade-guide-214864161.html
+    - check for possible compatibility issues with new version of Confluence, MySQL, Java: https://confluence.atlassian.com/doc/supported-platforms-207488198.html
+
+3) Backup
+	Shutdown Confluence and MySQL
+		service confluence stop
+		service rh-mysql56-mysqld stop
+	Backup Virtual Machine for quick restore
+		from VMware, right click on ep1p-apwiki02, select Snapshot, select Take Snapshot
+	Restart Confluence prior to upgrade
+		service rh-mysql56-mysqld start
+		service confluence start
+4) Patch
+    Run Confluence Upgrade script
+		/var/tmp/atlassian-confluence-5.8.9-x64.bin
+		o <enter> -> Ok to continue
+		3 <enter> -> Upgrade an existing Confluence installation
+		/wiki/confluence (default) <enter> -> installation directory
+		n <enter> -> Backup Confluence Home, already occurred prior to upgrade
+		<enter> -> to continue
+		
+Modified files:
+        bin/setenv.sh
+Removed files:
+        (none)
+Added files:
+        confluence/WEB-INF/lib/commons-validator-1.4.0.jar
+        confluence/WEB-INF/lib/mysql-connector-java-5.1.17.jar
+        bin/setenv.sh.06052015
+        bin/my.cnf.5.0
+        bin/setenv.sh.05052015
+
+		u <enter> -> to proceed with upgrade
+	Restore original setenv.sh from backup
+		mv /wiki/confluence/bin/setenv.sh /wiki/confluence/bin/setenv.sh.09022015
+		cp -p /wiki_backups/confluence.09022015/bin/setenv.sh /wiki/confluence/bin
+	Restore ownership to confluence
+		chown -R confluence:confluence /wiki/confluence
+	Restart Confluence services
+	   service confluence stop; sleep 30; service confluence start
+	Apply OS patches
+		yum -y update
+	Reboot
+		shutdown -r now
+	
+	
+confluence/WEB-INF/lib/mysql-connector-java-5.1.17.jar
+confluence/admin/find_and_recover_attachments-3.1.x.jsp
+confluence/admin/findattachments-3.1.x.jsp
+bin/setenv.sh.04222015
+bin/setenv.sh.04142015

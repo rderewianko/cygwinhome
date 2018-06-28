@@ -1,0 +1,19 @@
+# Install Azure CLI
+# https://azure.microsoft.com/en-us/documentation/articles/xplat-cli-install
+on RHEL 6:
+enable Red Hat Software Collections (rhel-server-rhscl-6-rpms)
+yum -y install nodejs010
+scl enable nodejs010 bash
+npm install -g azure-cli
+
+# Use Azure CLI
+scl enable nodejs010 bash
+azure account list
+
+# Update Azure CLI
+scl enable nodejs010 bash
+npm update -g azure-cli
+
+# Upload Image
+azure vm image create rhel7v1-starkey --blob-url https://rhel7poc2537.blob.core.windows.net/images/rhel7v1-starkey.vhd --location "Central US" --os Linux /apps/rhel7.2-azure-template.vhd
+azure vm image create <ImageName> --blob-url <BlobStorageURL>/<YourImagesFolder>/<VHDName> --os Linux <PathToVHDFile>
