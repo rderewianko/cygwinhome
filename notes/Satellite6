@@ -1,3 +1,7 @@
+# Reinstall Sat Cert from Capsule
+rpm -e katello-ca-consumer-capsulehostname.domain.com-1.0-1.noarch
+rpm -ivh http://capsulehostname.domain.com/pub/katello-ca-consumer-latest.noarch.rpm
+
 # REST API
 # obtain the statellite server ca.crt
 wget http://ep1p-apux10.starkey.com/pub/katello-server-ca.crt
