@@ -1,5 +1,5 @@
-[root@ep1p-apjamf01 init.d]# mysqladmin -u root password 'Starkey2924!'
-[root@ep1p-apjamf01 init.d]# mysql -u root -p
+[root@ep1p-apjamf01 init.d]# mysqladmin -u root password 'Starkey2924!' <-- i hope this is a temp password
+[root@ep1p-apjamf01 init.d]# mysql -u root -p 
 Enter password: 
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 4
